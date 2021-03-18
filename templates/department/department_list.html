@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %} Department {% endblock title %}
+{% block page %}Go To <a href="{% url 'employee'%}">Employee List</a> {% endblock page %}
+{% block content %}
+
+
+<div class="header-bar">
+    <h2>Department</h2>
+</div>
+
+
+<div id="search-add-wrapper">
+    <form method="GET" style="margin-top: 20px;display: flex;">
+        <input type='text' name='search-area' value="{{search_input}}">
+        <input class="button" type="submit" value='Search'>
+    </form>
+    <a id="add-link" href="{% url 'department-create' %}">&#x2b;</a>
+</div>
+
+
+
+
+<div class="task-items-wrapper">
+    {% for department in departments %}
+    <div class="task-wrapper">
+        {{department.id}}.
+        <div class="task-title">
+         <a href="{% url 'department-update' department.id %}">{{department.name}}</a>
+        </div>
+        <a class="delete-link" href="{% url 'department-delete' department.id %}">&#215;</a>
+    </div>
+    {% empty %}
+    <h3>No Items in List</h3>
+    {% endfor %}
+</div>
+{% endblock content %}

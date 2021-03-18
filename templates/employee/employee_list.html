@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %} Employee {% endblock title %}
+{% block page %}Go To <a href="{% url 'department'%}">Department List</a> {% endblock page %}
+{% block content %}
+
+
+<div class="header-bar">
+    <h2>Employee</h2>
+</div>
+
+
+<div id="search-add-wrapper">
+    <form method="GET" style="margin-top: 20px;display: flex;">
+        <input type='text' name='search-area' value="{{search_input}}">
+        <input class="button" type="submit" value='Search'>
+    </form>
+    <a id="add-link" href="{% url 'employee-create' %}">&#x2b;</a>
+</div>
+
+<div class="task-items-wrapper">
+    {% for employee in employees %}
+    <div class="task-wrapper">
+        {{employee.id}}.
+        <div class="task-title">
+            <a href="media/{{employee.image}}"><img src="{{employee.image.url}}"></a>
+            <a href="#">{{employee.name}}</a>
+        </div>
+        <div style="display: flex;">
+            <strong>Department: </strong>{{employee.department.name}}
+        </div>
+        <a class="update-link" href="{% url 'employee-update' employee.id %}">&#9998;</a>
+        <a class="delete-link" href="{% url 'employee-delete' employee.id %}">&#215;</a>
+    </div>
+    {% empty %}
+    <h3>No Items in List</h3>
+    {% endfor %}
+</div>
+
+{% endblock content %}
